@@ -7,7 +7,7 @@
 :root {
     /* Light Mode Farben */
     --primary-color: #4A90E2;
-    --secondary-color: #7B68EE;
+    --secondary-color: #0061FF; /* Dropbox Blue */
     --accent-color: #50C878;
     --error-color: #E74C3C;
     --warning-color: #F39C12;

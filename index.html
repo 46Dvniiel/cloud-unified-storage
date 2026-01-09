@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌥️ Cloud Unified Storage</title>
-    <meta name="description" content="Verbinde Google Drive, OneDrive und Azure Storage zu einem einheitlichen Cloud-Speicher">
+    <meta name="description" content="Verbinde Google Drive, Dropbox und Azure Storage zu einem einheitlichen Cloud-Speicher">
     
     <!-- Styling -->
     <link rel="stylesheet" href="css/styles.css">
@@ -58,21 +58,21 @@
                     </button>
                 </div>
 
-                <!-- OneDrive Card -->
-                <div class="provider-card" id="oneDriveCard">
+                <!-- Dropbox Card -->
+                <div class="provider-card" id="dropboxCard">
                     <div class="provider-header">
-                        <i class="fab fa-microsoft"></i>
-                        <h3>OneDrive</h3>
+                        <span style="font-size: 2rem;">📦</span>
+                        <h3>Dropbox</h3>
                     </div>
                     <div class="provider-status">
-                        <span class="status-badge status-disconnected" id="oneDriveStatus">
+                        <span class="status-badge status-disconnected" id="dropboxStatus">
                             <i class="fas fa-circle"></i> Nicht verbunden
                         </span>
                     </div>
                     <div class="provider-info">
-                        <p class="storage-info" id="oneDriveStorage">-- / -- GB</p>
+                        <p class="storage-info" id="dropboxStorage">-- / -- GB</p>
                     </div>
-                    <button class="btn btn-primary" id="oneDriveConnectBtn">
+                    <button class="btn btn-primary" id="dropboxConnectBtn">
                         <i class="fas fa-plug"></i> Verbinden
                     </button>
                 </div>
@@ -147,7 +147,7 @@
                 <select id="targetProvider" class="provider-select">
                     <option value="auto">🤖 Automatisch (meisten freier Speicher)</option>
                     <option value="google">🔵 Google Drive</option>
-                    <option value="onedrive">🔷 OneDrive</option>
+                    <option value="dropbox">📦 Dropbox</option>
                     <option value="azure">⬜ Azure Storage</option>
                 </select>
             </div>
@@ -237,9 +237,6 @@
     <!-- Google API -->
     <script src="https://apis.google.com/js/api.js"></script>
     
-    <!-- Microsoft Graph SDK -->
-    <script src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.min.js"></script>
-    
     <!-- Azure Storage Blob SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@azure/storage-blob@12.17.0/dist/azure-storage-blob.min.js"></script>
 
@@ -248,7 +245,7 @@
     
     <!-- App Scripts -->
     <script src="js/providers/googleDrive.js"></script>
-    <script src="js/providers/oneDrive.js"></script>
+    <script src="js/providers/dropbox.js"></script>
     <script src="js/providers/azure.js"></script>
     <script src="js/storageManager.js"></script>
     <script src="js/ui.js"></script>

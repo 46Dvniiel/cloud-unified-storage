@@ -114,7 +114,7 @@ function showWelcomeMessage() {
 ║                                            ║
 ║   Verbinde deine Cloud-Speicher:          ║
 ║   • Google Drive                           ║
-║   • OneDrive                               ║
+║   • Dropbox                                ║
 ║   • Azure Blob Storage                     ║
 ║                                            ║
 ║   Klicke auf "Verbinden" um zu starten!   ║

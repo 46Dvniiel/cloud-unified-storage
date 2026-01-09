@@ -1,6 +1,6 @@
 # 🌥️ Cloud Unified Storage WebApp
 
-Eine moderne, vollständig funktionsfähige WebApp, die mehrere Cloud-Speicher (Google Drive, OneDrive, Microsoft Azure Storage) zu einem einheitlichen Speicher verbindet.
+Eine moderne, vollständig funktionsfähige WebApp, die mehrere Cloud-Speicher (Google Drive, Dropbox, Microsoft Azure Storage) zu einem einheitlichen Speicher verbindet.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
@@ -16,7 +16,7 @@ Eine moderne, vollständig funktionsfähige WebApp, die mehrere Cloud-Speicher (
 - [Installation](#-installation)
 - [Konfiguration](#-konfiguration)
   - [Google Drive Setup](#1-google-drive-api-einrichten)
-  - [OneDrive Setup](#2-microsoft-onedrive-einrichten)
+  - [Dropbox Setup](#2-dropbox-api-einrichten)
   - [Azure Storage Setup](#3-azure-blob-storage-einrichten)
 - [Verwendung](#-verwendung)
 - [Projektstruktur](#-projektstruktur)
@@ -50,7 +50,7 @@ Cloud Unified Storage ist eine **Single-Page-WebApp**, die es dir ermöglicht, m
 
 ### Cloud-Provider Unterstützung
 - ✅ **Google Drive** - OAuth 2.0 Integration mit Google Drive API v3
-- ✅ **OneDrive** - Microsoft Graph API Integration
+- ✅ **Dropbox** - OAuth 2.0 mit PKCE Integration über Dropbox HTTP API v2
 - ✅ **Azure Blob Storage** - Connection String Authentifizierung
 - ℹ️ **iCloud** - Hinweis: Keine offizielle API verfügbar (siehe FAQ)
 
@@ -88,7 +88,7 @@ Cloud Unified Storage ist eine **Single-Page-WebApp**, die es dir ermöglicht, m
 - **Styling**: Modern CSS3 mit Flexbox/Grid
 - **APIs**: 
   - Google Drive API v3
-  - Microsoft Graph API (OneDrive)
+  - Dropbox HTTP API v2
   - Azure Storage Blob SDK
 - **Authentifizierung**: OAuth 2.0
 - **Icons**: Font Awesome 6.4.0
@@ -107,7 +107,7 @@ Diese App läuft direkt im Browser ohne Node.js, npm oder andere Build-Tools. Pe
 3. ✅ (Optional) Einen lokalen Webserver für Tests
 4. ✅ Accounts bei den Cloud-Providern, die du nutzen möchtest:
    - Google Account (für Google Drive)
-   - Microsoft Account (für OneDrive)
+   - Dropbox Account (für Dropbox)
    - Azure Account (für Azure Storage)
 
 ### Keine Programmierkenntnisse nötig!
@@ -237,46 +237,59 @@ google: {
 
 ---
 
-### 2. Microsoft OneDrive einrichten
+### 2. Dropbox API einrichten
 
-#### Schritt 2.1: Azure Portal öffnen
-1. Gehe zu [Azure Portal](https://portal.azure.com/)
-2. Melde dich mit deinem Microsoft Account an
+#### Schritt 2.1: Dropbox App Console öffnen
+1. Gehe zu [Dropbox App Console](https://www.dropbox.com/developers/apps)
+2. Melde dich mit deinem Dropbox Account an
 
-#### Schritt 2.2: App Registration erstellen
-1. Suche nach "Azure Active Directory"
-2. Im Menü links: "App registrations"
-3. Klicke "New registration"
-4. Fülle aus:
-   - **Name**: Cloud Unified Storage
-   - **Supported account types**: Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: 
-     - Platform: "Single-page application (SPA)"
-     - URI: `http://localhost:8080`
-5. Klicke "Register"
+#### Schritt 2.2: Neue App erstellen
+1. Klicke "Create app"
+2. Wähle folgende Optionen:
+   - **Choose an API**: Scoped access
+   - **Choose the type of access**: Full Dropbox
+   - **Name your app**: Cloud Unified Storage (oder einen anderen eindeutigen Namen)
+3. Klicke "Create app"
 
-#### Schritt 2.3: Client ID kopieren
-1. In der Overview-Seite deiner App
-2. Kopiere die **Application (client) ID**
+#### Schritt 2.3: App Key und App Secret kopieren
+1. Auf der App-Seite findest du:
+   - **App key**: Kopiere diesen Wert
+   - **App secret**: Klicke "Show" und kopiere den Wert
+2. ⚠️ **WICHTIG**: Behandle das App Secret wie ein Passwort!
 
-#### Schritt 2.4: API Permissions konfigurieren
-1. Im Menü links: "API permissions"
-2. Klicke "Add a permission"
-3. Wähle "Microsoft Graph"
-4. Wähle "Delegated permissions"
-5. Suche und füge hinzu:
-   - `Files.ReadWrite`
-   - `User.Read`
-6. Klicke "Add permissions"
+#### Schritt 2.4: Redirect URIs konfigurieren
+1. Scrolle zu "OAuth 2" → "Redirect URIs"
+2. Füge hinzu: `http://localhost:8000/callback`
+3. Für Produktion füge deine Production-URL hinzu (z.B. `https://deine-domain.com/callback`)
+4. Klicke "Add"
 
-#### Schritt 2.5: In config.js eintragen
+#### Schritt 2.5: Permissions setzen
+1. Scrolle zu "Permissions"
+2. Aktiviere folgende Scopes:
+   - **files.metadata.read** - Dateimetadaten lesen
+   - **files.content.read** - Dateiinhalte lesen
+   - **files.content.write** - Dateien hochladen
+   - **account_info.read** - Kontoinformationen lesen (für Quota)
+3. Klicke "Submit" am Ende der Seite
+
+#### Schritt 2.6: In config.js eintragen
 ```javascript
-microsoft: {
-    clientId: 'DEINE_APPLICATION_CLIENT_ID',
-    redirectUri: 'http://localhost:8080',
-    scopes: ['Files.ReadWrite', 'User.Read']
+dropbox: {
+    appKey: 'z0joayp02awtf7l',  // Ersetze mit deinem App Key
+    appSecret: 'vhruz54u488pjxp',  // Ersetze mit deinem App Secret
+    redirectUri: 'http://localhost:8000/callback'
 }
 ```
+
+⚠️ **SICHERHEITSHINWEIS**: 
+- Das App Secret sollte in Produktion NIEMALS im Frontend-Code stehen!
+- Für Produktion: Implementiere einen Backend-Service für den Token-Exchange
+- Diese Konfiguration ist nur für lokale Entwicklung/Demo geeignet
+
+**Dropbox API Dokumentation**:
+- [OAuth Guide](https://www.dropbox.com/developers/reference/oauth-guide)
+- [HTTP API](https://www.dropbox.com/developers/documentation/http/documentation)
+- [PKCE Flow](https://www.dropbox.com/developers/reference/oauth-guide#oauth-2-authorization-code-flow-with-pkce)
 
 ---
 
@@ -384,7 +397,7 @@ cloud-unified-storage/
     ├── storageManager.js # Zentrale Provider-Verwaltung
     └── providers/
         ├── googleDrive.js    # Google Drive Integration
-        ├── oneDrive.js       # OneDrive Integration
+        ├── dropbox.js        # Dropbox Integration
         └── azure.js          # Azure Storage Integration
 ```
 
@@ -491,11 +504,27 @@ Die App wählt automatisch den besten Provider basierend auf:
 3. **Falscher Scope**
    - Prüfe, ob Scopes in config.js korrekt sind
 
-### Problem: OneDrive Login Popup wird blockiert
+### Problem: Dropbox OAuth funktioniert nicht
 
-**Lösung**:
-1. Erlaube Popups für `localhost:8080`
-2. Im Browser: Site Settings → Popups → Erlauben
+**Mögliche Ursachen**:
+1. **Redirect URI nicht konfiguriert**
+   - Gehe zur Dropbox App Console
+   - OAuth 2 → Redirect URIs
+   - Füge `http://localhost:8000/callback` hinzu
+   - Stelle sicher, dass die URI exakt übereinstimmt (auch Port!)
+
+2. **App Permissions fehlen**
+   - Dropbox App Console → Permissions
+   - Aktiviere: files.metadata.read, files.content.read, files.content.write
+   - Klicke "Submit" am Ende der Seite
+
+3. **App Key oder Secret falsch**
+   - Prüfe, ob App Key und App Secret korrekt in config.js eingetragen sind
+   - Keine Leerzeichen am Anfang/Ende
+
+4. **PKCE Fehler**
+   - Stelle sicher, dass dein Browser Crypto API unterstützt
+   - Lösche LocalStorage: F12 → Application → Local Storage → Clear All
 
 ### Problem: Azure Upload funktioniert nicht
 
@@ -616,7 +645,7 @@ Die App selbst ist **kostenlos und Open Source**.
 
 Cloud-Provider können Kosten verursachen:
 - **Google Drive**: 15 GB kostenlos
-- **OneDrive**: 5 GB kostenlos (15 GB mit Microsoft 365)
+- **Dropbox**: 2 GB kostenlos (2 TB mit Dropbox Plus)
 - **Azure Storage**: Bezahlt nach Nutzung (sehr günstig)
 
 ### Kann ich weitere Cloud-Provider hinzufügen?

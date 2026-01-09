@@ -48,11 +48,11 @@ class UIManager {
             });
         }
 
-        // OneDrive
-        const oneDriveBtn = document.getElementById('oneDriveConnectBtn');
-        if (oneDriveBtn) {
-            oneDriveBtn.addEventListener('click', async () => {
-                await this.connectProvider('onedrive', oneDriveBtn);
+        // Dropbox
+        const dropboxBtn = document.getElementById('dropboxConnectBtn');
+        if (dropboxBtn) {
+            dropboxBtn.addEventListener('click', async () => {
+                await this.connectProvider('dropbox', dropboxBtn);
             });
         }
 
@@ -411,7 +411,7 @@ class UIManager {
     getProviderColor(providerId) {
         const colors = {
             'google': 'rgba(74, 144, 226, 0.2)',
-            'onedrive': 'rgba(123, 104, 238, 0.2)',
+            'dropbox': 'rgba(0, 97, 255, 0.2)',
             'azure': 'rgba(80, 200, 120, 0.2)'
         };
         return colors[providerId] || 'rgba(127, 140, 141, 0.2)';

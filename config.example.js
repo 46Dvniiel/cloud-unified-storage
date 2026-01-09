@@ -8,7 +8,7 @@
  * 
  * Wie du API Keys erhältst:
  * - Google Drive: https://console.cloud.google.com/
- * - OneDrive: https://portal.azure.com/ (App Registration)
+ * - Dropbox: https://www.dropbox.com/developers/apps
  * - Azure Storage: https://portal.azure.com/ (Storage Account)
  */
 
@@ -24,15 +24,18 @@ const CONFIG = {
         discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
     },
 
-    // Microsoft OneDrive Konfiguration
-    // Registriere eine App im Azure Portal unter "App registrations"
-    microsoft: {
-        clientId: 'DEINE_MICROSOFT_CLIENT_ID',
-        // Redirect URI muss in der App-Registration konfiguriert sein
-        // Für lokale Entwicklung: http://localhost:8080 oder deine lokale Adresse
-        redirectUri: 'http://localhost:8080',
-        // Diese Scopes definieren OneDrive-Berechtigungen
-        scopes: ['Files.ReadWrite', 'User.Read']
+    // Dropbox API Konfiguration
+    // Erstelle eine App auf der Dropbox Developer Console
+    // https://www.dropbox.com/developers/apps
+    dropbox: {
+        // App Key von deiner Dropbox App
+        appKey: 'z0joayp02awtf7l',
+        // App Secret von deiner Dropbox App (NUR für Entwicklung!)
+        // ⚠️ WICHTIG: In Produktion sollte der Token-Exchange über ein Backend erfolgen
+        appSecret: 'vhruz54u488pjxp',
+        // Redirect URI muss in der App-Konfiguration eingetragen sein
+        // Für lokale Entwicklung: http://localhost:8000/callback
+        redirectUri: 'http://localhost:8000/callback'
     },
 
     // Azure Blob Storage Konfiguration
