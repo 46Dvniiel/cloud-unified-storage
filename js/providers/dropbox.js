@@ -118,7 +118,13 @@ class DropboxProvider {
             }
 
             // Tausche Authorization Code gegen Access Token
-            // WICHTIG: In Produktion sollte dies über ein Backend erfolgen, um das App Secret zu schützen
+            // ⚠️ KRITISCHER SICHERHEITSHINWEIS:
+            // Dieser Code verwendet das App Secret im Frontend - das ist ein SICHERHEITSRISIKO!
+            // In einer Produktionsumgebung sollte dieser Token-Exchange über einen Backend-Service erfolgen:
+            // 1. Frontend sendet Authorization Code an Backend
+            // 2. Backend tauscht Code gegen Token (mit Secret, das nur dem Backend bekannt ist)
+            // 3. Backend sendet Access Token zurück an Frontend
+            // Diese Implementierung ist NUR für Entwicklung/Demo/Prototyping geeignet!
             const tokenResponse = await fetch('https://api.dropboxapi.com/oauth2/token', {
                 method: 'POST',
                 headers: {

@@ -29,10 +29,14 @@ const CONFIG = {
     // https://www.dropbox.com/developers/apps
     dropbox: {
         // App Key von deiner Dropbox App
-        appKey: 'z0joayp02awtf7l',
-        // App Secret von deiner Dropbox App (NUR für Entwicklung!)
-        // ⚠️ WICHTIG: In Produktion sollte der Token-Exchange über ein Backend erfolgen
-        appSecret: 'vhruz54u488pjxp',
+        appKey: 'DEINE_DROPBOX_APP_KEY_HIER',
+        // App Secret von deiner Dropbox App
+        // ⚠️ KRITISCHER SICHERHEITSHINWEIS:
+        // - Das App Secret sollte NIEMALS im Frontend-Code verwendet werden!
+        // - Jeder kann den JavaScript-Code lesen und das Secret extrahieren
+        // - Für PRODUKTION: Implementiere einen Backend-Service für Token-Exchange
+        // - Diese Konfiguration ist NUR für lokale Entwicklung/Demo/Prototyping
+        appSecret: 'DEINE_DROPBOX_APP_SECRET_HIER',
         // Redirect URI muss in der App-Konfiguration eingetragen sein
         // Für lokale Entwicklung: http://localhost:8000/callback
         redirectUri: 'http://localhost:8000/callback'

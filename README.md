@@ -275,16 +275,24 @@ google: {
 #### Schritt 2.6: In config.js eintragen
 ```javascript
 dropbox: {
-    appKey: 'z0joayp02awtf7l',  // Ersetze mit deinem App Key
-    appSecret: 'vhruz54u488pjxp',  // Ersetze mit deinem App Secret
+    appKey: 'DEINE_DROPBOX_APP_KEY_HIER',  // Ersetze mit deinem App Key
+    appSecret: 'DEINE_DROPBOX_APP_SECRET_HIER',  // Ersetze mit deinem App Secret
     redirectUri: 'http://localhost:8000/callback'
 }
 ```
 
-⚠️ **SICHERHEITSHINWEIS**: 
-- Das App Secret sollte in Produktion NIEMALS im Frontend-Code stehen!
-- Für Produktion: Implementiere einen Backend-Service für den Token-Exchange
-- Diese Konfiguration ist nur für lokale Entwicklung/Demo geeignet
+⚠️ **KRITISCHER SICHERHEITSHINWEIS**: 
+- Das App Secret sollte in Produktion **NIEMALS** im Frontend-Code stehen!
+- Jeder kann JavaScript-Code im Browser lesen und das Secret extrahieren
+- **Für Produktion**: Implementiere einen Backend-Service (Node.js, Python, etc.) für den Token-Exchange
+- Der Backend-Service hält das Secret geheim und tauscht nur Authorization Codes gegen Tokens
+- Diese Frontend-Konfiguration ist **NUR** für lokale Entwicklung/Demo/Lernen geeignet!
+
+**Produktions-Alternative (Empfohlen)**:
+1. Erstelle einen Backend-Endpunkt (z.B. `/api/dropbox/token`)
+2. Frontend sendet Authorization Code an Backend
+3. Backend tauscht Code gegen Token (mit Secret)
+4. Backend sendet Access Token zurück
 
 **Dropbox API Dokumentation**:
 - [OAuth Guide](https://www.dropbox.com/developers/reference/oauth-guide)
