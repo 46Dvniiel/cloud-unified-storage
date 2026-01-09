@@ -233,14 +233,23 @@ class GoogleDriveProvider {
         }
 
         try {
-            // Hole Download-URL
-            const response = await gapi.client.drive.files.get({
-                fileId: fileId,
-                alt: 'media'
-            });
+            // Für Google Drive müssen wir einen separaten Fetch-Request machen
+            // da gapi.client die Binärdaten nicht korrekt zurückgibt
+            const response = await fetch(
+                `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${this.accessToken}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Download fehlgeschlagen');
+            }
 
             // Erstelle Blob und Download
-            const blob = new Blob([response.body], { type: 'application/octet-stream' });
+            const blob = await response.blob();
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;

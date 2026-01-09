@@ -307,6 +307,7 @@ class UIManager {
         // Provider Badge Farbe
         const providerColor = this.getProviderColor(file.provider);
 
+        // Erstelle Elemente sicher ohne innerHTML für Event Handlers
         div.innerHTML = `
             <div class="file-icon">${icon}</div>
             <div class="file-info">
@@ -314,15 +315,21 @@ class UIManager {
                 <div class="file-meta">${size} • ${date}</div>
             </div>
             <div class="file-source" style="background-color: ${providerColor};">
-                ${file.providerName}
+                ${this.escapeHtml(file.providerName)}
             </div>
             <div class="file-actions">
-                <button onclick="ui.downloadFile('${file.provider}', '${file.id}', '${this.escapeHtml(file.name)}')" 
-                        title="Herunterladen">
-                    <i class="fas fa-download"></i>
-                </button>
             </div>
         `;
+
+        // Füge Download-Button mit sicherem Event Listener hinzu
+        const downloadBtn = document.createElement('button');
+        downloadBtn.title = 'Herunterladen';
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i>';
+        downloadBtn.addEventListener('click', () => {
+            this.downloadFile(file.provider, file.id, file.name);
+        });
+        
+        div.querySelector('.file-actions').appendChild(downloadBtn);
 
         return div;
     }

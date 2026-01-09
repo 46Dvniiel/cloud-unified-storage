@@ -42,20 +42,36 @@ class AzureStorageProvider {
      */
     async connect() {
         try {
-            // WICHTIG: Connection String sollte in Produktion nicht im Frontend sein!
-            // Dies ist nur für Demo/Entwicklung
+            // ⚠️⚠️⚠️ KRITISCHER SICHERHEITSHINWEIS ⚠️⚠️⚠️
+            // 
+            // Connection Strings sollten NIEMALS im Frontend verwendet werden!
+            // Dies ist nur eine DEMO-Implementierung für Lernzwecke.
+            // 
+            // FÜR PRODUKTION:
+            // 1. Erstelle einen Backend-Service (z.B. Node.js, Python, C#)
+            // 2. Backend generiert kurzlebige SAS-Tokens (Shared Access Signatures)
+            // 3. Frontend ruft Backend auf und erhält SAS-Token
+            // 4. Frontend nutzt SAS-Token für Blob-Operationen
+            // 5. SAS-Tokens sollten Ablaufzeit haben (z.B. 1 Stunde)
+            //
+            // Beispiel Backend-Endpoint:
+            // POST /api/generate-sas-token
+            // Response: { sasToken: "?sv=2021-06-08&ss=b&srt=sco&sp=...", expiresAt: "..." }
+            //
+            // Beispiel Frontend-Nutzung:
+            // const response = await fetch('/api/generate-sas-token');
+            // const { sasToken } = await response.json();
+            // const blobServiceClient = new BlobServiceClient(`https://${accountName}.blob.core.windows.net${sasToken}`);
+            
+            console.warn('🚨 SICHERHEITSWARNUNG: Azure Storage ist im DEMO-Modus! 🚨');
+            console.warn('Connection Strings im Frontend sind ein Sicherheitsrisiko!');
+            console.warn('Für Produktion MUSS ein Backend-Service mit SAS-Tokens verwendet werden!');
+            
             const connectionString = CONFIG.azure.connectionString;
             const containerName = CONFIG.azure.containerName;
 
-            // Erstelle BlobServiceClient
-            // Hinweis: Dies funktioniert nur mit CORS-aktiviertem Storage Account
-            const { BlobServiceClient } = window.azblob;
-            
-            // In einer echten App würde man hier einen SAS-Token vom Backend holen
-            // Für Demo-Zwecke zeigen wir den Prozess:
-            
             // Da Connection Strings im Browser nicht sicher verwendet werden können,
-            // simulieren wir hier die Verbindung
+            // simulieren wir hier die Verbindung für Demo-Zwecke
             this.isConnected = true;
             
             // Azure Blob Storage hat typischerweise kein festes Quota
@@ -64,12 +80,11 @@ class AzureStorageProvider {
             this.quota.used = 0;
             this.quota.free = this.quota.total;
 
-            console.log('Azure Storage verbunden (Demo-Modus)');
-            console.warn('WICHTIG: In Produktion SAS-Tokens verwenden, nicht Connection Strings!');
+            console.log('✅ Azure Storage verbunden (DEMO-Modus - nicht für Produktion!)');
 
             return { 
                 success: true, 
-                message: 'Azure Storage verbunden (Demo-Modus)' 
+                message: '⚠️ Azure Storage verbunden (DEMO-Modus - siehe Konsole für Sicherheitshinweise)' 
             };
 
         } catch (error) {

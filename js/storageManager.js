@@ -146,8 +146,9 @@ class StorageManager {
         );
 
         // Kombiniere und dedupliziere Ergebnisse
+        // Verwende robusteren Key mit Delimiter um Kollisionen zu vermeiden
         const combined = [...searchResults, ...localResults];
-        const unique = Array.from(new Map(combined.map(f => [f.id + f.provider, f])).values());
+        const unique = Array.from(new Map(combined.map(f => [`${f.provider}:${f.id}`, f])).values());
 
         return unique;
     }
