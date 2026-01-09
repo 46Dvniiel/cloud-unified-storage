@@ -137,3 +137,7 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# API Keys und Konfiguration (WICHTIG: Niemals committen!)
+config.js
+js/config.js

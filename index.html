@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌥️ Cloud Unified Storage</title>
+    <meta name="description" content="Verbinde Google Drive, OneDrive und Azure Storage zu einem einheitlichen Cloud-Speicher">
+    
+    <!-- Styling -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Font Awesome für Icons (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <button id="darkModeBtn" title="Dark Mode umschalten">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-cloud"></i>
+                <h1>Cloud Unified Storage</h1>
+            </div>
+            <p class="tagline">Alle deine Cloud-Speicher an einem Ort</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Provider Cards Section -->
+        <section class="providers-section">
+            <h2>🔗 Cloud-Provider Verbindungen</h2>
+            <div class="providers-grid">
+                
+                <!-- Google Drive Card -->
+                <div class="provider-card" id="googleDriveCard">
+                    <div class="provider-header">
+                        <i class="fab fa-google-drive"></i>
+                        <h3>Google Drive</h3>
+                    </div>
+                    <div class="provider-status">
+                        <span class="status-badge status-disconnected" id="googleStatus">
+                            <i class="fas fa-circle"></i> Nicht verbunden
+                        </span>
+                    </div>
+                    <div class="provider-info">
+                        <p class="storage-info" id="googleStorage">-- / -- GB</p>
+                    </div>
+                    <button class="btn btn-primary" id="googleConnectBtn">
+                        <i class="fas fa-plug"></i> Verbinden
+                    </button>
+                </div>
+
+                <!-- OneDrive Card -->
+                <div class="provider-card" id="oneDriveCard">
+                    <div class="provider-header">
+                        <i class="fab fa-microsoft"></i>
+                        <h3>OneDrive</h3>
+                    </div>
+                    <div class="provider-status">
+                        <span class="status-badge status-disconnected" id="oneDriveStatus">
+                            <i class="fas fa-circle"></i> Nicht verbunden
+                        </span>
+                    </div>
+                    <div class="provider-info">
+                        <p class="storage-info" id="oneDriveStorage">-- / -- GB</p>
+                    </div>
+                    <button class="btn btn-primary" id="oneDriveConnectBtn">
+                        <i class="fas fa-plug"></i> Verbinden
+                    </button>
+                </div>
+
+                <!-- Azure Storage Card -->
+                <div class="provider-card" id="azureCard">
+                    <div class="provider-header">
+                        <i class="fab fa-windows"></i>
+                        <h3>Azure Storage</h3>
+                    </div>
+                    <div class="provider-status">
+                        <span class="status-badge status-disconnected" id="azureStatus">
+                            <i class="fas fa-circle"></i> Nicht verbunden
+                        </span>
+                    </div>
+                    <div class="provider-info">
+                        <p class="storage-info" id="azureStorage">-- / -- GB</p>
+                    </div>
+                    <button class="btn btn-primary" id="azureConnectBtn">
+                        <i class="fas fa-plug"></i> Verbinden
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Total Storage Overview -->
+        <section class="storage-overview">
+            <h2>📊 Gesamtspeicher-Übersicht</h2>
+            <div class="storage-stats">
+                <div class="stat-card">
+                    <i class="fas fa-database"></i>
+                    <div class="stat-info">
+                        <p class="stat-label">Gesamt verfügbar</p>
+                        <p class="stat-value" id="totalStorage">-- GB</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <div class="stat-info">
+                        <p class="stat-label">Verwendet</p>
+                        <p class="stat-value" id="usedStorage">-- GB</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-hdd"></i>
+                    <div class="stat-info">
+                        <p class="stat-label">Frei</p>
+                        <p class="stat-value" id="freeStorage">-- GB</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Storage Bar -->
+            <div class="storage-bar-container">
+                <div class="storage-bar">
+                    <div class="storage-bar-fill" id="storageBarFill" style="width: 0%"></div>
+                </div>
+                <p class="storage-bar-label">
+                    <span id="storagePercentage">0%</span> verwendet
+                </p>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <h2>📤 Dateien hochladen</h2>
+            
+            <!-- Provider Selection -->
+            <div class="upload-options">
+                <label for="targetProvider">Ziel-Provider:</label>
+                <select id="targetProvider" class="provider-select">
+                    <option value="auto">🤖 Automatisch (meister freier Speicher)</option>
+                    <option value="google">🔵 Google Drive</option>
+                    <option value="onedrive">🔷 OneDrive</option>
+                    <option value="azure">⬜ Azure Storage</option>
+                </select>
+            </div>
+
+            <!-- Drag & Drop Zone -->
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-zone-content">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Dateien hierher ziehen</h3>
+                    <p>oder</p>
+                    <label for="fileInput" class="btn btn-secondary">
+                        <i class="fas fa-folder-open"></i> Dateien auswählen
+                    </label>
+                    <input type="file" id="fileInput" multiple hidden>
+                </div>
+            </div>
+
+            <!-- Upload Progress -->
+            <div class="upload-progress" id="uploadProgress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="uploadProgressBar"></div>
+                </div>
+                <p class="progress-text" id="uploadProgressText">Lädt hoch...</p>
+            </div>
+        </section>
+
+        <!-- File Browser Section -->
+        <section class="files-section">
+            <h2>📁 Datei-Browser</h2>
+            
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Dateien durchsuchen...">
+            </div>
+
+            <!-- File List -->
+            <div class="file-list" id="fileList">
+                <div class="file-list-empty">
+                    <i class="fas fa-folder-open"></i>
+                    <p>Keine Dateien gefunden</p>
+                    <p class="hint">Verbinde einen Cloud-Provider und lade Dateien hoch</p>
+                </div>
+            </div>
+
+            <!-- Loading Skeleton -->
+            <div class="loading-skeleton" id="loadingSkeleton" style="display: none;">
+                <div class="skeleton-item"></div>
+                <div class="skeleton-item"></div>
+                <div class="skeleton-item"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 Cloud Unified Storage | 
+                <a href="https://github.com/46Dvniiel/cloud-unified-storage" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </p>
+            <p class="footer-note">
+                <i class="fas fa-info-circle"></i> 
+                iCloud wird aufgrund fehlender offizieller API nicht unterstützt
+            </p>
+        </div>
+    </footer>
+
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Fehler</h3>
+            </div>
+            <div class="modal-body" id="errorMessage">
+                Ein Fehler ist aufgetreten.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeErrorBtn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google API -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    
+    <!-- Microsoft Graph SDK -->
+    <script src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.min.js"></script>
+    
+    <!-- Azure Storage Blob SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@azure/storage-blob@12.17.0/dist/azure-storage-blob.min.js"></script>
+
+    <!-- App Configuration (erstelle config.js aus config.example.js) -->
+    <script src="config.js"></script>
+    
+    <!-- App Scripts -->
+    <script src="js/providers/googleDrive.js"></script>
+    <script src="js/providers/oneDrive.js"></script>
+    <script src="js/providers/azure.js"></script>
+    <script src="js/storageManager.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
