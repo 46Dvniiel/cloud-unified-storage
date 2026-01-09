@@ -358,7 +358,7 @@ azure: {
 1. **Öffne die App** in deinem Browser (`http://localhost:8080`)
 
 2. **Verbinde einen Cloud-Provider**
-   - Klicke auf "Verbinden" bei Google Drive, OneDrive oder Azure
+   - Klicke auf "Verbinden" bei Google Drive, Dropbox oder Azure
    - Melde dich mit deinem Account an
    - Erlaube der App den Zugriff
 
