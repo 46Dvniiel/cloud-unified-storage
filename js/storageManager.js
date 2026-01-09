@@ -9,7 +9,7 @@ class StorageManager {
         // Initialisiere Provider
         this.providers = {
             google: new GoogleDriveProvider(),
-            onedrive: new OneDriveProvider(),
+            dropbox: new DropboxProvider(),
             azure: new AzureStorageProvider()
         };
 
@@ -22,7 +22,7 @@ class StorageManager {
     async init() {
         const results = {
             google: false,
-            onedrive: false,
+            dropbox: false,
             azure: false
         };
 
@@ -34,12 +34,12 @@ class StorageManager {
             console.error('Google Drive Init fehlgeschlagen:', error);
         }
 
-        // Initialisiere OneDrive
+        // Initialisiere Dropbox
         try {
-            await this.providers.onedrive.init();
-            results.onedrive = true;
+            await this.providers.dropbox.init();
+            results.dropbox = true;
         } catch (error) {
-            console.error('OneDrive Init fehlgeschlagen:', error);
+            console.error('Dropbox Init fehlgeschlagen:', error);
         }
 
         // Initialisiere Azure
@@ -55,7 +55,7 @@ class StorageManager {
 
     /**
      * Verbindet einen Provider
-     * @param {string} providerId - ID des Providers (google, onedrive, azure)
+     * @param {string} providerId - ID des Providers (google, dropbox, azure)
      */
     async connectProvider(providerId) {
         const provider = this.providers[providerId];
