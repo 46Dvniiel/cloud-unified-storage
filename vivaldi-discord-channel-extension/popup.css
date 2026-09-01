@@ -1,0 +1,61 @@
+:root {
+  color-scheme: light dark;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #111827;
+  color: #f3f4f6;
+}
+
+.card {
+  padding: 14px;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.status {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #93c5fd;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.label {
+  color: #9ca3af;
+}
+
+.error {
+  margin: 10px 0;
+  font-size: 12px;
+  color: #fca5a5;
+}
+
+.actions {
+  margin-top: 12px;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}

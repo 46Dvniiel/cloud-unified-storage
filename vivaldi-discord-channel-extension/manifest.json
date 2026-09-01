@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Discord Channel for Vivaldi",
+  "version": "1.0.0",
+  "description": "Shows the currently open Discord channel from the Windows Discord desktop app.",
+  "permissions": [
+    "nativeMessaging"
+  ],
+  "action": {
+    "default_title": "Discord Channel",
+    "default_popup": "popup.html"
+  }
+}

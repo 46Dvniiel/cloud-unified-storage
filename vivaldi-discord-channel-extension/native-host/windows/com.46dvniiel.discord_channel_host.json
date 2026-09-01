@@ -1,0 +1,9 @@
+{
+  "name": "com.46dvniiel.discord_channel_host",
+  "description": "Native host for Discord Channel Vivaldi extension",
+  "path": "C:\\REPLACE_WITH_ABSOLUTE_PATH\\discord-channel-host.ps1",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://REPLACE_WITH_EXTENSION_ID/"
+  ]
+}

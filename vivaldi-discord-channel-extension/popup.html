@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discord Channel</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Discord Channel</h1>
+    <p id="status" class="status">Checking…</p>
+
+    <section id="result" hidden>
+      <div class="row"><span class="label">Channel</span><span id="channel">-</span></div>
+      <div class="row"><span class="label">Server</span><span id="server">-</span></div>
+      <div class="row"><span class="label">Window title</span><span id="title">-</span></div>
+    </section>
+
+    <p id="error" class="error" hidden></p>
+
+    <div class="actions">
+      <button id="refreshBtn" type="button">Refresh</button>
+    </div>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>
