@@ -15,7 +15,8 @@ This extension shows the currently open Discord channel from the **Windows Disco
 
 - `manifest.json` - Vivaldi/Chromium extension manifest (MV3)
 - `popup.html`, `popup.css`, `popup.js` - extension UI and native message request
-- `native-host/windows/discord-channel-host.ps1` - native host process
+- `native-host/windows/discord-channel-host.ps1` - native host process logic
+- `native-host/windows/discord-channel-host.cmd` - launcher used by native messaging
 - `native-host/windows/install-native-host.ps1` - helper installer for native host manifest
 - `native-host/windows/com.46dvniiel.discord_channel_host.json` - native host manifest template
 
@@ -33,8 +34,9 @@ This extension shows the currently open Discord channel from the **Windows Disco
    .\install-native-host.ps1 -ExtensionId <YOUR_EXTENSION_ID>
    ```
 
-6. Fully close and reopen Vivaldi.
-7. Click the extension icon and press **Refresh**.
+6. The installer writes the manifest and registers the host in `HKCU` for Vivaldi/Chromium.
+7. Fully close and reopen Vivaldi.
+8. Click the extension icon and press **Refresh**.
 
 ## Notes / limitations
 
