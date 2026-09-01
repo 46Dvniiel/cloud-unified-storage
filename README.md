@@ -48,6 +48,11 @@ Cloud Unified Storage ist eine **Single-Page-WebApp**, die es dir ermöglicht, m
 
 ## ✨ Features
 
+### Zusatz: Vivaldi-Extension für Discord (Windows)
+- ✅ Enthält eine lokale Vivaldi-Extension unter `vivaldi-discord-channel-extension/`
+- ✅ Zeigt den aktuell erkannten Discord-Kanal aus der Windows-Desktop-App
+- ✅ Nutzt Native Messaging Host für die Kommunikation mit der Windows-App
+
 ### Cloud-Provider Unterstützung
 - ✅ **Google Drive** - OAuth 2.0 Integration mit Google Drive API v3
 - ✅ **Dropbox** - OAuth 2.0 mit PKCE Integration über Dropbox HTTP API v2
